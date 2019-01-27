@@ -5,7 +5,7 @@ var mysql = require('mysql'),
 
 module.exports = function(client) {
     //* If no connection exists -> create one
-    if(process.env.NODE_ENV != 'contributor' || !dfSQL) {
+    if(process.env.NODE_ENV != 'contributor' && !dfSQL) {
         dfSQL = mysql.createConnection({
             host: 'mcdiamondfire.com',
             user: process.env.dfuser,
