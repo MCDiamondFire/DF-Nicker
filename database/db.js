@@ -5,7 +5,7 @@ var mysql = require('mysql'),
 
 module.exports = function(client) {
     //* If no connection exists -> create one
-    if(!dfSQL) {
+    if(process.env.NODE_ENV != 'contributor' || !dfSQL) {
         dfSQL = mysql.createConnection({
             host: 'mcdiamondfire.com',
             user: process.env.dfuser,
@@ -25,7 +25,7 @@ module.exports = function(client) {
     if(!botSQL) {
         //! localhost -> premid.app if development instance
         botSQL = mysql.createConnection({
-            host: "localhost",
+            host: process.env.NODE_ENV == "dev" || process.env.NODE_ENV == "contributor" ? "premid.app" : "localhost",
             user: process.env.botuser,
             password: process.env.botpass,
             database: 'dfnicker',
