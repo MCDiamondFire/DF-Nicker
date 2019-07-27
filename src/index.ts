@@ -23,7 +23,7 @@ var client = new Discord.Client({
       : {
           status: "online",
           activity: {
-            name: "Timeraa",
+            name: "dfn!config",
             type: "LISTENING"
           }
         }
