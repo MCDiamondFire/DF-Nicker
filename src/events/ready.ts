@@ -22,6 +22,8 @@ module.exports.run = async (client: Discord.Client) => {
   if (client.user) success(`Connected as ${client.user.tag}`);
 
   autoNick();
+  // TODO Remove this if possible
+  setInterval(autoNick, 5 * 60 * 1000);
 };
 
 module.exports.config = {
