@@ -13,6 +13,7 @@ module.exports = async (member: Discord.GuildMember) => {
 
   if (
     guildConfig.autoNick &&
+    //@ts-ignore
     rows.length > 0 &&
     rows[0].player_name !== member.displayName
   )

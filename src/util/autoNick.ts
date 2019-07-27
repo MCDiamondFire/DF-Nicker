@@ -20,6 +20,7 @@ export async function autoNick() {
       );
 
     usersToNick.map(m => {
+      // @ts-ignore
       var row = rows.find(row => row.discord_id === m.id);
       if (row && row.player_name !== m.displayName) {
         console.log(row.player_name);

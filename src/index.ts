@@ -7,7 +7,7 @@ import moduleLoader from "./util/moduleLoader";
 import { connect } from "./database/client";
 import * as mysql from "mysql2/promise";
 
-export var connection;
+export var connection: mysql.Connection;
 
 //* Create new client & set login presence
 var client = new Discord.Client({
@@ -64,9 +64,11 @@ client.elevation = (message: Discord.Message) => {
     database: process.env.SQLDB
   });
 
-  client.login(process.env.TOKEN).then(() => {
-    moduleLoader(client);
+  connection.on("error", err => {
+    if (err.code === "PROTOCOL_CONNECTION_LOST") connection.connect();
   });
+
+  client.login(process.env.TOKEN).then(() => moduleLoader(client));
 })().catch(error);
 
 export { client };

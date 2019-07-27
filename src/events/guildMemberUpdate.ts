@@ -4,8 +4,11 @@ import { connection } from "..";
 
 var coll = MongoClient.db("DF-Nicker").collection("GuildConfig");
 
-module.exports = async (oldMember: Discord.GuildMember, newMember: Discord.GuildMember) => {
-  if(oldMember.displayName === newMember.displayName) return
+module.exports = async (
+  oldMember: Discord.GuildMember,
+  newMember: Discord.GuildMember
+) => {
+  if (oldMember.displayName === newMember.displayName) return;
 
   var guildConfig = await coll.findOne({ guildId: newMember.guild.id }),
     [rows] = await connection.query(
@@ -15,6 +18,7 @@ module.exports = async (oldMember: Discord.GuildMember, newMember: Discord.Guild
 
   if (
     guildConfig.autoNick &&
+    //@ts-ignore
     rows.length > 0 &&
     rows[0].player_name !== newMember.displayName
   )
