@@ -1,29 +1,28 @@
 {
-  "name": "df-nicker",
+  "name": "dfnicker-bot",
+  "description": "DF Nicker Discord Bot",
+  "repository": "https://github.com/DiamondFire/DF-Nicker",
   "version": "2.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "node index",
-    "dev": "nodemon index.js"
+    "compile": "tsc && tsc devMode && node devMode.js && cd dist && npm i --production",
+    "dev": "nodemon --quiet --exec 'node devMode.js & cd dist && node -r source-map-support/register index.js' -w dist -e js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MCDiamondFire/DF-Nicker.git"
-  },
-  "author": "Timeraa",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/MCDiamondFire/DF-Nicker/issues"
-  },
-  "homepage": "https://github.com/MCDiamondFire/DF-Nicker#readme",
   "dependencies": {
-    "discord.js": "^11.4.2",
+    "chalk": "^2.4.2",
+    "discord.js": "github:discordjs/discord.js",
     "dotenv": "^6.2.0",
-    "mysql": "^2.16.0"
+    "mongodb": "^3.2.7",
+    "mysql2": "^1.6.5"
   },
   "devDependencies": {
-    "chalk": "^2.4.2",
-    "nodemon": "^1.18.9"
+    "@types/dotenv": "^6.1.1",
+    "@types/mongodb": "^3.1.28",
+    "@types/request-promise-native": "^1.0.16",
+    "fast-glob": "^3.0.4",
+    "fs-extra": "^8.1.0",
+    "nodemon": "^1.18.9",
+    "source-map-support": "^0.5.12",
+    "typescript": "^3.5.3"
   }
 }

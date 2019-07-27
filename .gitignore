@@ -1,2 +1,9 @@
-.env
 node_modules
+dist
+
+src/package.json
+
+.vscode
+.env
+
+*.js
