@@ -1,4 +1,4 @@
-package com.owen1212055.dfnicker;
+package com.diamondfire.dfnicker;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;

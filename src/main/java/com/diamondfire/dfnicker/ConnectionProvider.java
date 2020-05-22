@@ -1,4 +1,4 @@
-package com.owen1212055.dfnicker;
+package com.diamondfire.dfnicker;
 
 import org.apache.commons.dbcp.BasicDataSource;
 

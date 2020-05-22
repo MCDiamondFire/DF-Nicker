@@ -4,8 +4,8 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '4.0.4'
 }
 
-mainClassName = 'com.owen1212055.dfnicker.DFNicker'
-group 'com.owen1212055.dfnicker'
+mainClassName = 'com.diamondfire.dfnicker.DFNicker'
+group 'com.diamondfire.dfnicker'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -24,7 +24,7 @@ jar {
     manifest {
         attributes(
                 'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-                'Main-Class': 'com.owen1212055.dfnicker.DFNicker'
+                'Main-Class': 'com.diamondfire.dfnicker.DFNicker'
         )
     }
 }
