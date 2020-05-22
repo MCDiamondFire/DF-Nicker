@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '4.0.4'
+}
+
+mainClassName = 'com.owen1212055.dfnicker.DFNicker'
+group 'com.owen1212055.dfnicker'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    jcenter()
+
+}
+
+dependencies {
+    compile 'net.dv8tion:JDA:4.1.1_127'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
+    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
+}
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'com.owen1212055.dfnicker.DFNicker'
+        )
+    }
+}
