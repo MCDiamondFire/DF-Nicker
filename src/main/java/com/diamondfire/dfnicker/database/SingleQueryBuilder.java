@@ -19,6 +19,7 @@ public class SingleQueryBuilder {
         this.preparedStatement = statement;
         return this;
     }
+
     public SingleQueryBuilder query(@Language("SQL") String query) {
         this.query = query;
         return this;

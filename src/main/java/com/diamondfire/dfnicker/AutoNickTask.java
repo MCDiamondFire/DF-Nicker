@@ -1,15 +1,11 @@
 package com.diamondfire.dfnicker;
 
 
-import com.diamondfire.dfnicker.database.ConnectionProvider;
 import com.diamondfire.dfnicker.database.SingleQueryBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -26,36 +22,6 @@ public class AutoNickTask implements Runnable {
                 0,
                 1,
                 TimeUnit.DAYS);
-    }
-
-    @Override
-    public void run() {
-        HashMap<Long, String> accounts = new HashMap<>();
-        new SingleQueryBuilder().query("SELECT discord_id AS discord_id, player_name AS player FROM hypercube.linked_accounts WHERE discord_id IS NOT NULL AND player_name IS NOT NULL;")
-                .onQuery((table) -> {
-                    do {
-                        try {
-                            accounts.put(table.getLong("discord_id"), table.getString("player"));
-                        } catch (SQLException ignored) {
-                        }
-                    } while (table.next());
-                }).execute();
-
-        for (Guild guild : DFNicker.jda.getGuilds()) {
-            List<Role> roles = guild.getRolesByName("Verified", true);
-            Role role = roles.isEmpty() ? null : roles.get(0);
-            guild.retrieveMembers().thenRun(() -> {
-                for (Member member : guild.getMemberCache()) {
-                    accounts.computeIfPresent(member.getIdLong(), (id, name) -> {
-                        update(member,name,role);
-                        return null;
-                    });
-
-                }
-            }).thenRun(guild::pruneMemberCache);
-
-        }
-
     }
 
     public static void update(Member member, String verificationName, Role verificationRole) {
@@ -80,8 +46,38 @@ public class AutoNickTask implements Runnable {
         })).onQuery((table) -> {
             List<Role> roles = member.getGuild().getRolesByName("Verified", true);
             Role role = roles.isEmpty() ? null : roles.get(0);
-            AutoNickTask.update(member,table.getString("name"), role);
+            AutoNickTask.update(member, table.getString("name"), role);
         }).execute();
+    }
+
+    @Override
+    public void run() {
+        HashMap<Long, String> accounts = new HashMap<>();
+        new SingleQueryBuilder().query("SELECT discord_id AS discord_id, player_name AS player FROM hypercube.linked_accounts WHERE discord_id IS NOT NULL AND player_name IS NOT NULL;")
+                .onQuery((table) -> {
+                    do {
+                        try {
+                            accounts.put(table.getLong("discord_id"), table.getString("player"));
+                        } catch (SQLException ignored) {
+                        }
+                    } while (table.next());
+                }).execute();
+
+        for (Guild guild : DFNicker.jda.getGuilds()) {
+            List<Role> roles = guild.getRolesByName("Verified", true);
+            Role role = roles.isEmpty() ? null : roles.get(0);
+            guild.retrieveMembers().thenRun(() -> {
+                for (Member member : guild.getMemberCache()) {
+                    accounts.computeIfPresent(member.getIdLong(), (id, name) -> {
+                        update(member, name, role);
+                        return null;
+                    });
+
+                }
+            }).thenRun(guild::pruneMemberCache);
+
+        }
+
     }
 
 }

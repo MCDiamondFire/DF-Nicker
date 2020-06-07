@@ -18,6 +18,7 @@ import javax.security.auth.login.LoginException;
 import java.util.ArrayList;
 
 public class DFNicker {
+
     public static JDA jda;
     public static CommandHandler handler = new CommandHandler();
 
