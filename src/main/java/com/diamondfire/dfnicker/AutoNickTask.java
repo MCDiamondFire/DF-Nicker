@@ -52,7 +52,7 @@ public class AutoNickTask implements Runnable {
                     });
 
                 }
-            });
+            }).thenRun(guild::pruneMemberCache);
 
         }
 
