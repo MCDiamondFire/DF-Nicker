@@ -74,4 +74,14 @@ public class AutoNickTask implements Runnable {
         }
     }
 
+    public static void update(Member member) {
+        new SingleQueryBuilder().query("SELECT player_name AS name FROM hypercube.linked_accounts WHERE discord_id = ?;", (statement -> {
+            statement.setLong(1, member.getIdLong());
+        })).onQuery((table) -> {
+            List<Role> roles = member.getGuild().getRolesByName("Verified", true);
+            Role role = roles.isEmpty() ? null : roles.get(0);
+            AutoNickTask.update(member,table.getString("name"), role);
+        }).execute();
+    }
+
 }

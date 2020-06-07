@@ -18,7 +18,6 @@ dependencies {
     compile 'net.dv8tion:JDA:4.1.1_127'
     compile 'ch.qos.logback:logback-classic:1.2.3'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
-    compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
 }
 jar {
     manifest {

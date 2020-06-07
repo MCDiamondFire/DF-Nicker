@@ -1,5 +1,8 @@
 package com.diamondfire.dfnicker;
 
+import com.diamondfire.dfnicker.commands.CommandHandler;
+import com.diamondfire.dfnicker.commands.HelpCommand;
+import com.diamondfire.dfnicker.commands.SyncCommand;
 import com.diamondfire.dfnicker.events.JoinEvent;
 import com.diamondfire.dfnicker.events.MessageEvent;
 import net.dv8tion.jda.api.JDA;
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 
 public class DFNicker {
     public static JDA jda;
+    public static CommandHandler handler = new CommandHandler();
 
     // Please note, I have plans to rewrite this in the future.
 
@@ -35,6 +39,8 @@ public class DFNicker {
 
         jda = builder.build();
         jda.awaitReady();
+
+        handler.register(new HelpCommand(), new SyncCommand());
         AutoNickTask.initialize();
 
 
