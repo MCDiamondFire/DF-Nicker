@@ -27,12 +27,14 @@ public class AutoNickTask implements Runnable {
     public static void update(Member member, String verificationName, Role verificationRole) {
         Guild guild = member.getGuild();
         try {
-            if (!member.getEffectiveName().equals(verificationName) && guild.getSelfMember().canInteract(member)) {
-                member.modifyNickname(verificationName).reason("Verification Name Change").queue();
-            }
-            if (verificationRole != null) {
-                if (member.getRoles().stream().noneMatch((memberRole) -> memberRole.getIdLong() == verificationRole.getIdLong())) {
-                    guild.addRoleToMember(member.getIdLong(), verificationRole).reason("Verification Role").queue();
+            if (guild.getSelfMember().canInteract(member)) {
+                if (!member.getEffectiveName().equals(verificationName)) {
+                    member.modifyNickname(verificationName).reason("Verification Name Change").queue();
+                }
+                if (verificationRole != null) {
+                    if (member.getRoles().stream().noneMatch((memberRole) -> memberRole.getIdLong() == verificationRole.getIdLong())) {
+                        guild.addRoleToMember(member.getIdLong(), verificationRole).reason("Verification Role").queue();
+                    }
                 }
             }
         } catch (Exception e) {
@@ -57,7 +59,9 @@ public class AutoNickTask implements Runnable {
                 .onQuery((table) -> {
                     do {
                         try {
-                            accounts.put(table.getLong("discord_id"), table.getString("player"));
+                            if (!accounts.containsKey(table.getLong("discord_id"))) {
+                                accounts.put(table.getLong("discord_id"), table.getString("player"));
+                            }
                         } catch (SQLException ignored) {
                         }
                     } while (table.next());
