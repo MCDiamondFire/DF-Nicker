@@ -74,7 +74,7 @@ public class AutoNickTask implements Runnable {
                 for (Member member : guild.getMemberCache()) {
                     accounts.computeIfPresent(member.getIdLong(), (id, name) -> {
                         update(member, name, role);
-                        return null;
+                        return name;
                     });
 
                 }
