@@ -1,7 +1,6 @@
 package com.diamondfire.dfnicker.database;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 @FunctionalInterface
 public interface PreparedStatementManager {

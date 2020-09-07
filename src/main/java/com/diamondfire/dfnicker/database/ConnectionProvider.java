@@ -1,19 +1,20 @@
 package com.diamondfire.dfnicker.database;
 
-import com.diamondfire.dfnicker.SensitiveData;
+import com.diamondfire.dfnicker.bot.NickBotInstance;
+import com.diamondfire.dfnicker.bot.config.Config;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ConnectionProvider {
 
     private static final MysqlDataSource source = new MysqlDataSource();
 
     static {
-        source.setUrl(SensitiveData.DB_URL);
-        source.setUser(SensitiveData.DB_USER);
-        source.setPassword(SensitiveData.DB_PASS);
+        Config config = NickBotInstance.getConfig();
+        source.setUrl(config.getDBUrl());
+        source.setUser(config.getDBUser());
+        source.setPassword(config.getDBPassword());
     }
 
     public static Connection getConnection() throws SQLException {

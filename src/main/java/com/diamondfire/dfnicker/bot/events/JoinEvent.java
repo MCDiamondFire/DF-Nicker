@@ -1,6 +1,6 @@
-package com.diamondfire.dfnicker.events;
+package com.diamondfire.dfnicker.bot.events;
 
-import com.diamondfire.dfnicker.AutoNickTask;
+import com.diamondfire.dfnicker.util.NickUtil;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -10,8 +10,6 @@ public class JoinEvent extends ListenerAdapter {
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent event) {
-        AutoNickTask.update(event.getMember());
+        NickUtil.updateMember(event.getMember());
     }
-
-
 }
