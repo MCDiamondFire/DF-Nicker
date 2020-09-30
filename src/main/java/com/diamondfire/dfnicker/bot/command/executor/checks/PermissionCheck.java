@@ -14,7 +14,7 @@ public class PermissionCheck implements CommandCheck {
     @Override
     public void buildMessage(CommandEvent event, PresetBuilder builder) {
         builder.withPreset(
-                new InformativeReply(InformativeReplyType.ERROR, "No Permission!", "Sorry, you do not have permission to use this command. Commands that you are able to use are listed in ?help.")
+                new InformativeReply(InformativeReplyType.ERROR, "No Permission!", "Sorry, you do not have permission to use this command. Commands that you are able to use are listed in dfn!help.")
         );
         builder.getEmbed().setFooter("Permission Required: " + event.getCommand().getPermission().name());
     }

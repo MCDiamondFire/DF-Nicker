@@ -16,8 +16,12 @@ public class MessageEvent extends ListenerAdapter {
         Message message = event.getMessage();
         if (message.getContentDisplay().startsWith(NickBotInstance.getConfig().getPrefix()) && !event.getAuthor().isBot()) {
             event.getAuthor().openPrivateChannel().queue((channel) -> {
-                event.getMessage().addReaction("\u2705").queue();
-                NickBotInstance.getHandler().run(new CommandEvent(event.getJDA(), event.getResponseNumber(), message, channel));
+                CommandEvent cmdEvent = new CommandEvent(event.getJDA(), event.getResponseNumber(), message, channel);
+                NickBotInstance.getHandler().run(cmdEvent);
+
+                if (cmdEvent.getCommand() != null) {
+                    event.getMessage().addReaction("\u2705").queue();
+                }
             }, (error) -> {
                 PresetBuilder builder = new PresetBuilder()
                         .withPreset(
