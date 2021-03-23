@@ -36,7 +36,7 @@ public class InviteCommand extends Command {
     public void run(CommandEvent event) {
         PresetBuilder builder = new PresetBuilder();
         builder.withPreset(
-                new InformativeReply(InformativeReplyType.INFO, "Invite", "https://discord.com/oauth2/authorize?client_id=477878457225969664&permissions=402653184&scope=bot")
+                new InformativeReply(InformativeReplyType.INFO, "Invite", "https://discord.com/oauth2/authorize?client_id=477878457225969664&permissions=402653184&scope=applications.commands+bot")
         );
 
         event.reply(builder);
